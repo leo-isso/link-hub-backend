@@ -5,7 +5,9 @@ from mongoengine import (
     Document,
     EmailField,
     EmbeddedDocument,
+    EmbeddedDocumentField,
     ListField,
+    ObjectIdField,
     StringField,
 )
 
@@ -15,6 +17,11 @@ class Accounts(EmbeddedDocument):
         required=True,
         unique=True,
     )
+    biography = StringField(max_length=300)
+    alias = StringField(max_length=300)
+    links = ListField(
+        ObjectIdField()
+    )  # TODO: Add DB field to ObjectIdField -> Link
 
 
 class User(Document):
@@ -23,7 +30,7 @@ class User(Document):
         unique=True,
     )
     password = StringField(required=True)
-    accounts = ListField()
+    accounts = ListField(EmbeddedDocumentField(Accounts))
     modified_at = DateTimeField(default=datetime.datetime.now)
     created_at = DateTimeField(default=datetime.datetime.now)
 
