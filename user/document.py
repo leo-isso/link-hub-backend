@@ -22,9 +22,7 @@ class User(Document):
         required=True,
         unique=True,
     )
-    password = StringField(
-        required=True,
-    )
+    password = StringField(required=True)
     accounts = ListField()
     modified_at = DateTimeField(default=datetime.datetime.now)
     created_at = DateTimeField(default=datetime.datetime.now)
