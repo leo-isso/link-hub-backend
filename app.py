@@ -23,5 +23,5 @@ connect(
 app = Flask(__name__)
 api = Api(app)
 
-# Routes
+# flask_restful Routes
 api.add_resource(UserApi, "/user")
