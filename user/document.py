@@ -1,6 +1,7 @@
 import datetime
 
 from mongoengine import (
+    BooleanField,
     DateTimeField,
     Document,
     EmailField,
@@ -22,6 +23,7 @@ class Accounts(EmbeddedDocument):
     links = ListField(
         ObjectIdField()
     )  # TODO: Add DB field to ObjectIdField -> Link
+    active = BooleanField(default=True)
 
 
 class User(Document):
@@ -33,6 +35,7 @@ class User(Document):
     accounts = ListField(EmbeddedDocumentField(Accounts))
     modified_at = DateTimeField(default=datetime.datetime.now)
     created_at = DateTimeField(default=datetime.datetime.now)
+    active = BooleanField(default=True)
 
     def save(self, *args, **kwargs):
         if not self.created_at:
