@@ -8,3 +8,7 @@ class UserController:
         user.save()
 
         return json.loads(user.to_json())
+
+    def get(self, id=None):
+        if not id:
+            return User.objects().to_json()
