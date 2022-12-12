@@ -12,3 +12,5 @@ class UserController:
     def get(self, id=None):
         if not id:
             return User.objects().to_json()
+
+        return User.objects().get(_id=id)
