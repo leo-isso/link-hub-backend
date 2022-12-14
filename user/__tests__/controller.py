@@ -4,6 +4,8 @@ from base.test import WithMongoTestCase
 
 
 class UserControllerTest(WithMongoTestCase):
+    controller = UserController()
+
     def generate_user(self):
         return dict(
             accounts=[
@@ -19,8 +21,7 @@ class UserControllerTest(WithMongoTestCase):
     def test_create_user(self):
         data = self.generate_user()
 
-        user_controller = UserController()
-        new_user = user_controller.create(data)
+        new_user = self.controller.create(data)
 
         self.assertEqual(new_user["email"], data["email"])
         self.assertEqual(new_user["password"], data["password"])
@@ -33,10 +34,9 @@ class UserControllerTest(WithMongoTestCase):
         )
 
     def test_get_all_users(self):
-        user_controller = UserController()
 
         new_user = self.generate_user()
-        user_controller.create(new_user)
+        self.controller.create(new_user)
 
-        users = user_controller.get()
+        users = self.controller.get()
         self.assertGreater(len(users), 0)
