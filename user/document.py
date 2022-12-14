@@ -32,6 +32,7 @@ class User(Document):
         unique=True,
     )
     password = StringField(required=True)
+    salt = StringField(required=True)
     accounts = ListField(EmbeddedDocumentField(Accounts))
     modified_at = DateTimeField(default=datetime.datetime.now)
     created_at = DateTimeField(default=datetime.datetime.now)
