@@ -33,10 +33,15 @@ class UserControllerTest(WithMongoTestCase):
             data["accounts"][0]["username"],
         )
 
-    def test_get_all_users(self):
+    def test_get_all_users_with_password(self):
+        data = self.generate_user()
+        self.controller.create(data)
 
-        new_user = self.generate_user()
-        self.controller.create(new_user)
+        users = self.controller.get(with_password=True)
+        self.assertGreater(len(users), 0)
+        self.assertIn("password", users[0])
 
+    def test_get_all_users_without_password(self):
         users = self.controller.get()
         self.assertGreater(len(users), 0)
+        self.assertNotIn("password", users[0])
