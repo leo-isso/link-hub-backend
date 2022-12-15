@@ -14,3 +14,8 @@ def generate_salt_key():
 def encrypt_password(password, salt):
     salted_password = f"{password}{salt}"
     return hashlib.md5(salted_password.encode()).hexdigest()
+
+
+def validate_password(password, salt, user_password):
+    encrypted_password = encrypt_password(password, salt)
+    return encrypted_password == user_password
