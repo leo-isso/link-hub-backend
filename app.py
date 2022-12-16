@@ -24,4 +24,4 @@ app = Flask(__name__)
 api = Api(app)
 
 # flask_restful Routes
-api.add_resource(UserApi, "/user")
+api.add_resource(UserApi, "/user/", "/user/<string:id>/")

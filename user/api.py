@@ -5,10 +5,14 @@ from flask_restful import Resource
 
 
 class UserApi(Resource):
-    def get(self):
+    user_controller = UserController()
+
+    def get(self, id=None):
+        if not id:
+            return self.user_controller.get()
+
         return {"hello": "world"}
 
     def post(self):
         json_data = request.json
-        user_controller = UserController()
-        return user_controller.create(json_data)
+        return self.user_controller.create(json_data)
