@@ -11,7 +11,7 @@ class UserApi(Resource):
         if not id:
             return self.user_controller.get()
 
-        return {"hello": "world"}
+        return self.user_controller.get_one(id)
 
     def post(self):
         json_data = request.json

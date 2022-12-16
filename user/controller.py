@@ -26,3 +26,11 @@ class UserController:
             )
 
         return json.loads(User.objects().to_json())
+
+    def get_one(self, id, with_password=False):
+        if not with_password:
+            return json.loads(
+                User.objects().fields(password=0, salt=0).get(id=id).to_json()
+            )
+
+        return json.loads(User.objects().get(id=id).to_json())
